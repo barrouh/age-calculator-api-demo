@@ -1,5 +1,5 @@
 
-<form action="http://localhost:8080/getAge" method="GET">
+<form class="pure-form" [formGroup]="ageCalculatorForm" (ngSubmit)="onSubmit()">
 <h2>Age Calculator</h2>
 <table>
   <tr>
@@ -7,14 +7,27 @@
   </tr>
   <tr>
     <td><label >Birth Date : </label></td>
-    <td> <input type="text" name="birthdate" required></td>
+    <td> <input type="date" formControlName="birthdate" required></td>
   </tr>
   <tr>
     <td><label >Age At The Date Of : </label></td>
-    <td> <input type="text" name="ageAtTheDateOf"></td>
+    <td> <input type="date" formControlName="ageAtTheDateOf"></td>
   </tr>
   <tr>
-    <td colspan="3"><input type="submit" value="Calculate"></td>
+    <td><label >Get Date As : </label></td>
+    <td><select formControlName="ageDateAs">
+        <option selected value="years">Years</option>
+        <option value="months" >Months</option>
+        <option value="weeks" >Weeks</option>
+        <option value="days" >Days</option>
+        <option value="hours" >Hours</option>
+        <option value="seconds" >Seconds</option>
+        </select>
+  </td>
+  </tr> 
+  <tr>
+    <td colspan="3">
+    <button type="submit" class="pure-button buttonSbmit" [disabled]="!ageCalculatorForm.valid">Calculate</button>
   </tr>
 </table>
 </form>
