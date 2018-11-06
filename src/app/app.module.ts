@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http'; 
+import { DatePipe } from '@angular/common';
 import { AppFormComponent } from './app-form/app-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -10,14 +11,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     BrowserModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   exports: [
     AppFormComponent,
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppFormComponent]
 })
 export class AppModule { }
