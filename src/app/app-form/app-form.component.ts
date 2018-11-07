@@ -15,7 +15,8 @@ export class AppFormComponent implements OnInit {
     ageDateAs:new FormControl(''),
   });
 
-  finalAge ="";
+  finalAge="";
+  finalData : any;
   birthdate="";
   ageAtTheDateOf="";
   ageDateAs="";
@@ -29,12 +30,37 @@ export class AppFormComponent implements OnInit {
     this.ageDateAs=this.ageCalculatorForm.value.ageDateAs;
     // call age service to get the finall age
     this.getAgeService.getFinalAge(this.birthdate,this.ageAtTheDateOf,this.ageDateAs)
-    .subscribe(data =>this.finalAge=data[this.ageDateAs]
-    +" "
-    +this.ageDateAs.substring(0,1).toUpperCase()
-    +this.ageDateAs.substring(1,this.ageDateAs.length));
+    .subscribe(data =>
+    // convert Json object to String result
+    this.formatResponse(data));
+   
+  }
+
+  //sorry for this code :p
+  public formatResponse(finalData){
+    var result ="Your age is : ";
+    var count = Object.keys(finalData).length;
+    if(count<=1){
+      result +=finalData[this.ageDateAs]
+      +" "
+      +this.ageDateAs.substring(0,1).toUpperCase()
+      +this.ageDateAs.substring(1,this.ageDateAs.length);
+    }else{
+      var res=" ";
+      for (let prop in finalData) {
+        res+=finalData[prop]
+        +" "
+        +prop.substring(0,1).toUpperCase()
+        +prop.substring(1,prop.length)+" And ";
+      }
+      // remove 'And ' from the End 
+      res=res.substring(1,res.length-4)+".";
+      result+=res;
+    }
+    this.finalAge=result;
   }
   ngOnInit() {
   }
+  
 
 }
