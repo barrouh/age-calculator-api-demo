@@ -1,0 +1,27 @@
+language: node_js
+node_js: '8'
+sudo: true
+dist: trusty
+branches:
+  only:
+  - master
+cache: yarn
+addons:
+  sonarcloud:
+    organization: "barrouh-github"
+    token:
+      secure: $SONAR_TOKEN
+install:
+  - yarn install
+script: 
+  - ng test --watch false -cc
+  - npm run e2e
+  - ng build
+  - yarn build
+  - sonar-scanner
+  notifications:
+  email:
+    recipients:
+      - mohamed.barrouh@gmail.com
+    on_success: never
+    on_failure: always
